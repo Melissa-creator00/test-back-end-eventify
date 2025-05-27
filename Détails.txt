@@ -1,0 +1,148 @@
+````markdown
+# Eventify API – Documentation
+
+API RESTful développée en Laravel pour la gestion d’événements, d’utilisateurs et de réservations.
+
+---
+
+## Authentification
+
+### `POST /api/register`
+Crée un compte utilisateur.  
+**Body JSON** :
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secret",
+  "password_confirmation": "secret"
+}
+````
+
+### `POST /api/login`
+
+Connexion utilisateur.
+**Body JSON** :
+
+```json
+{
+  "email": "john@example.com",
+  "password": "secret"
+}
+```
+
+### `GET /api/profile`
+
+Retourne les infos du profil connecté.
+**Header** : `Authorization: Bearer {token}`
+
+### `POST /api/logout`
+
+Déconnexion.
+
+---
+
+## Événements
+
+### `GET /api/events`
+
+Liste paginée des événements.
+**Query params** :
+
+* `category_id` : filtre par catégorie
+* `search` : recherche par titre
+
+### `GET /api/events/{id}`
+
+Détail d’un événement.
+
+### `POST /api/events`
+
+Créer un événement.
+**Body JSON** :
+
+```json
+{
+  "title": "Laravel Conf",
+  "description": "Une super conférence",
+  "date_time": "2025-06-01 10:00:00",
+  "location": "Paris",
+  "category_id": 1
+}
+```
+
+### `PUT /api/events/{id}`
+
+Mettre à jour un événement.
+
+### `DELETE /api/events/{id}`
+
+Supprimer un événement.
+
+---
+
+## Catégories
+
+### `GET /api/categories`
+
+Liste des catégories.
+
+### `POST /api/categories`
+
+Créer une catégorie.
+
+### `PUT /api/categories/{id}`
+
+Mettre à jour une catégorie.
+
+### `DELETE /api/categories/{id}`
+
+Supprimer une catégorie.
+
+---
+
+## Réservations
+
+### `POST /api/reservations`
+
+Réserver une place à un événement.
+**Body JSON** :
+
+```json
+{
+  "event_id": 3
+}
+```
+
+### `GET /api/reservations`
+
+Liste des réservations (admin uniquement).
+
+### `GET /api/my-reservations`
+
+Liste des réservations de l’utilisateur connecté.
+
+### `DELETE /api/reservations/{id}`
+
+Annuler une réservation.
+
+---
+
+## Gestion des erreurs
+
+* **401 Unauthorized** : Token invalide ou manquant
+* **422 Validation Error** : Données invalides
+* **404 Not Found** : Ressource inexistante
+* **200 OK / 201 Created** : Requête réussie
+
+---
+
+## Tech Stack
+
+* Laravel 11
+* Laravel Sanctum (auth)
+* MySQL
+* PHP 8.2
+* API REST
+
+```
